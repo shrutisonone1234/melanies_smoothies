@@ -43,6 +43,8 @@ my_insert_stmt = "insert into smoothies.public.orders(ingredients, name_on_order
 
 st.write(my_insert_stmt)
 
+
+
 # Insert
 if submit_button:
     if ingredients_string:
@@ -50,6 +52,30 @@ if submit_button:
         st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon="✅")
     else:
         st.warning("Please select at least one ingredient.")
+
+import requests
+import pandas as pd
+
+# API Call
+smoothiefroot_response = requests.get(
+    "https://my.smoothiefroot.com/api/fruit/watermelon"
+)
+
+# Convert to JSON
+smoothiefroot_json = smoothiefroot_response.json()
+
+# Show JSON
+st.write(smoothiefroot_json)
+
+# Convert to DataFrame
+sf_df = pd.json_normalize(smoothiefroot_json)
+
+# Show DataFrame
+st.dataframe(sf_df)
+# import requests  
+# smoothiefroot_response = requests.get("[https://my.smoothiefroot.com/api/fruit/watermelon](https://my.smoothiefroot.com/api/fruit/watermelon)")  
+# st.text(smoothiefroot_response)
+
 
 # # Import python packages
 # import streamlit as st
